@@ -1,0 +1,67 @@
+# ==========================================
+# BINISHOP — .gitignore
+# ==========================================
+
+# --- Environment ---
+.env
+.env.local
+.env.production
+
+# --- Node.js ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# --- Medusa Backend ---
+backend/dist/
+backend/build/
+backend/.medusa/
+backend/medusa-storage/
+
+# --- Flutter ---
+frontend/.dart_tool/
+frontend/.flutter-plugins
+frontend/.flutter-plugins-dependencies
+frontend/.packages
+frontend/.pub-cache/
+frontend/build/
+frontend/android/.gradle/
+frontend/android/app/build/
+frontend/android/local.properties
+frontend/ios/Pods/
+frontend/ios/.symlinks/
+frontend/ios/Flutter/Flutter.framework
+frontend/ios/Flutter/Flutter.podspec
+frontend/ios/Runner.xcworkspace/
+frontend/ios/Runner.xcodeproj/xcuserdata/
+frontend/pubspec.lock
+frontend/*.iml
+frontend/.flutter-plugins-dependencies
+
+# --- IDE ---
+.idea/
+*.swp
+*.swo
+*~
+.vscode/settings.json
+.vscode/launch.json
+
+# --- Logs / diagnostics ---
+logs/
+*.log
+cleanup-report.txt
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Docker ---
+infrastructure/minio/data/
+
+# --- Scripts ---
+scripts/*.log
+
+# --- Docs ---
+docs/*.pdf

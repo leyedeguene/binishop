@@ -1,0 +1,26 @@
+﻿=== ROOT ===
+.env
+.env.example
+.gitignore
+backend
+docs
+frontend
+infrastructure
+logs
+scripts
+=== SCRIPTS ===
+create-bucket-minio.bat
+e2e-run.mjs
+install-backend.bat
+reset-local.bat
+run-e2e-final.bat
+run-medusa-dev.bat
+run-seed-admin.bat
+setup-local.bat
+start-medusa-safe.bat
+=== LOGS_EXISTS ===
+True
+=== GIT ===
+GIT_NOT_INSTALLED
+=== GITDIR ===
+False

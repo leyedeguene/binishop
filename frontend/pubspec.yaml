@@ -1,0 +1,49 @@
+# ==========================================
+# BINISHOP — Flutter Application
+# ==========================================
+
+name: binishop
+description: BINISHOP - Plateforme e-commerce de mode
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # --- State Management ---
+  flutter_riverpod: ^2.5.0
+
+  # --- Routing ---
+  go_router: ^14.0.0
+
+  # --- Network ---
+  dio: ^5.4.0
+
+  # --- Storage ---
+  flutter_secure_storage: ^9.2.0
+
+  # --- Utils ---
+  equatable: ^2.0.5
+  logger: ^2.3.0
+  flutter_dotenv: ^5.2.0
+  file_picker: ^8.1.2
+  http_parser: ^4.0.2
+
+  intl: any
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - .env
+    - assets/images/
