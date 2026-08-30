@@ -1,6 +1,4 @@
-# ==========================================
 # BINISHOP — Dockerfile Medusa.js
-# ==========================================
 FROM node:20-alpine AS base
 
 WORKDIR /app
