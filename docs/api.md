@@ -66,11 +66,29 @@ x-publishable-api-key: pk_47dd9ad1e92866bc524bed6104f492b037252dbb3037a7ede0734d
 | POST | /store/carts/:id/shipping-methods | Choisir transporteur {option_id} |
 | GET | /store/shipping-options?cart_id= | Options livraison disponibles |
 | POST | /store/payment-collections | Créer collection paiement |
-| POST | /store/payment-collections/:id/payment-sessions | Session {provider_id: pp_payment-test} |
-| POST | /store/payment-collections/:id/authorize | Autoriser paiement TEST |
+| POST | /store/payment-collections/:id/payment-sessions | Session {provider_id} |
+| POST | /store/payment-collections/:id/authorize | Autoriser paiement |
 | POST | /store/carts/:id/complete | Finaliser commande |
 | POST | /auth/customer/emailpass | Login client |
 | POST | /store/customers | Inscription client |
+
+### Provider paiement — Stripe vs TEST (dynamique)
+
+Le **backend** (`medusa-config.js`) charge `@medusajs/payment-stripe@2.19.0` **uniquement si** `STRIPE_API_KEY` est défini. Sinon → provider TEST.
+
+Le **frontend** (`checkout_notifier.dart`) détecte la clé publique Stripe :
+- `FLUTTER_STRIPE_PUBLISHABLE_KEY` renseigné → provider `pp_stripe_stripe`
+- Vide → provider `pp_payment-test_payment-test` (local)
+
+```env
+# backend/.env  (clé secrète — NE JAMAIS pousser)
+STRIPE_API_KEY=sk_test_...
+
+# frontend/.env (clé publique — safe côté client)
+FLUTTER_STRIPE_PUBLISHABLE_KEY=pk_test_...
+```
+
+**Carte test Stripe** : `4242 4242 4242 4242`, date future n'importe laquelle, CVC 3 chiffres.
 
 ### Provider paiement TEST (custom)
 

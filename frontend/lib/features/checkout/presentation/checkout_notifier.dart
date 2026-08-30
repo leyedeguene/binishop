@@ -4,8 +4,17 @@
 library features.checkout.presentation.checkout_notifier;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../core/config/environment.dart';
 import '../../../../core/providers/service_providers.dart';
 import '../../cart/presentation/cart_notifier.dart';
+
+/// Provider ID utilisé selon le mode de paiement :
+/// - Stripe si FLUTTER_STRIPE_PUBLISHABLE_KEY est renseigné
+/// - Payment-TEST sinon (mode local)
+String _effectivePaymentProvider() =>
+    Environment.stripePublishableKey.isNotEmpty
+        ? 'pp_stripe_stripe'
+        : 'pp_payment-test_payment-test';
 
 /// Etapes du checkout
 enum CheckoutStep { addresses, shipping, payment, confirmation }
@@ -59,8 +68,8 @@ class CheckoutState {
 
   // Etape paiement
   final String? paymentCollectionId;
-  final String? paymentSessionId;
-  final String paymentProviderId; // pp_payment-test_payment-test
+        final String? paymentSessionId;
+    final String paymentProviderId; // calculé dynamiquement : pp_stripe_stripe | pp_payment-test_payment-test
 
   // Resultat
   final String? orderId;
@@ -73,7 +82,7 @@ class CheckoutState {
     this.selectedShippingOptionId,
     this.paymentCollectionId,
     this.paymentSessionId,
-    this.paymentProviderId = 'pp_payment-test_payment-test',
+        this.paymentProviderId = '', // initialisé dynamiquement via copyWith / _effectivePaymentProvider()
     this.orderId,
   });
 
@@ -95,7 +104,9 @@ class CheckoutState {
       selectedShippingOptionId:
           selectedShippingOptionId ?? this.selectedShippingOptionId,
       paymentCollectionId: paymentCollectionId ?? this.paymentCollectionId,
-      paymentSessionId: paymentSessionId ?? this.paymentSessionId,
+            paymentSessionId: paymentSessionId ?? this.paymentSessionId,
+      paymentProviderId:
+          paymentProviderId ?? _effectivePaymentProvider(), // dynamique Stripe/TEST
       orderId: orderId ?? this.orderId,
     );
   }
@@ -220,8 +231,10 @@ class CheckoutNotifier extends StateNotifier<CheckoutState> {
 
     // Creer la session de paiement via provider TEST
     final psResult = await _checkoutService.createPaymentSession(
-      collectionId: collectionId,
-      providerId: 'pp_payment-test_payment-test',
+            collectionId: collectionId,
+      providerId: state.paymentProviderId.isNotEmpty
+          ? state.paymentProviderId
+          : _effectivePaymentProvider(),
     );
     if (psResult.data == null) {
       state = state.copyWith(

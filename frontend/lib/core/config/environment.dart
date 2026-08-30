@@ -14,7 +14,11 @@ abstract final class Environment {
   static String get appEnv => _get('APP_ENV', 'development');
   static String get defaultCurrency => _get('DEFAULT_CURRENCY', 'EUR');
   static String get defaultLocale => _get('DEFAULT_LOCALE', 'fr');
-  static String get defaultRegion => _get('DEFAULT_REGION', 'eu');
+    static String get defaultRegion => _get('DEFAULT_REGION', 'eu');
+
+  /// Stripe publishable key (clé publique — sûre côté client).
+  /// Vide en local → le checkout utilisera le provider payment-test.
+  static String get stripePublishableKey => _get('FLUTTER_STRIPE_PUBLISHABLE_KEY', '');
 
   static bool get isDevelopment => appEnv == 'development';
   static bool get isProduction => appEnv == 'production';
