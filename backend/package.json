@@ -13,7 +13,6 @@
     "setup": "medusa db:migrate && medusa db:sync-links && medusa exec ./src/scripts/seed.ts && medusa user --email admin@binishop.com --password Admin123456!"
   },
   "dependencies": {
-    "@medusajs/admin": "^7.1.18",
     "@medusajs/cli": "^2.19.0",
     "@medusajs/file": "^2.19.0",
     "@medusajs/file-local": "^2.19.0",
@@ -31,6 +30,6 @@
     "typescript": "^5.4.5"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20.19.0"
   }
 }
